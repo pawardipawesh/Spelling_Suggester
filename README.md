@@ -1,4 +1,4 @@
-## Context Independent Unsupervised Spelling Suggestor for misspelled word using Pretrained Character Embeddings
+## Context Independent Unsupervised Spelling Suggester for misspelled word using Pretrained Character Embeddings
 
 **About**
 
