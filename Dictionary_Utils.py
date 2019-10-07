@@ -21,7 +21,7 @@ class DictUtils():
                 if i<5:
                     i+=1
                 else:
-                    raise IOError("Oops!",sys.exc_info()[0],"occured.")
+                    raise IOError("Your main directory is not consisting of file: "+file_path)
     
     def write_file(file,content,sep):
         i=0
@@ -43,7 +43,7 @@ class DictUtils():
                     if i<5:
                         i+=1
                     else:
-                        raise IOError("Oops!",sys.exc_info()[0],"occured.")
+                        raise IOError("Unable to close file: "+file_path)
                 
         
 
