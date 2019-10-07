@@ -26,7 +26,7 @@ Please install libraries using requirements.txt and download dictionaries
 **Approach**
 
 Here, I have tried to use word level information that charcter embeddings provide to come up with words which are closer to input word. 
-chars2vec project [chars2vec project](https://github.com/IntuitionEngineeringTeam/chars2vec) has trained LSTM based architecture on the pair of similar and non-similar words with objective of having proximal vectors for similar words. Hence I have used it to encode words with these pretrained character embeddings.
+[chars2vec project](https://github.com/IntuitionEngineeringTeam/chars2vec) has trained LSTM based architecture on the pair of similar and non-similar words with objective of having proximal vectors for similar words. Hence I have used it to encode words with their pretrained character embeddings.
 
 **Algorithm**
 
