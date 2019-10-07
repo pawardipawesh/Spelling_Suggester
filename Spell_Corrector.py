@@ -92,7 +92,7 @@ eng_words_file=DictUtils.load_file(eng_word_list_path,'r')
 eng_words=eng_words_file.read().split('\n')
 unique_bi_grams.extend(eng_words)
 startChar_to_words_dict=spell_corrector.create_dict(unique_bi_grams)
-#print('Loading Done')
+print('Loading is done....Please hit localhost:5000 in your browser')
     
 if __name__ == "__main__":
     app.run(host='0.0.0.0', debug=False)
