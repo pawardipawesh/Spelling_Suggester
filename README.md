@@ -7,7 +7,8 @@ decreasiasing order of their probability of correct version of input
 
 e.g. 
 
-*Input Word* : homogenious
+*Input Word* : 
+- homogenious
 
 *Suggested Spelling corrections:*
 
