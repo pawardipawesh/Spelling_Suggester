@@ -3,20 +3,20 @@
 **About**
 
 Application expects word with spelling mistake as input and returns top 5 possible corrections of it. These corrections are ordered in 
-decreasiasing order of their probability of correct version of input
+decreasing order of their probability of being a correct version of input.
 
 e.g. 
 
 *Input Word* : 
 - homogenious
 
-*Suggested Spelling corrections:*
+*Suggested Spelling corrections with their probability:*
 
-- homogeneousness
-- homogeneous
-- homogenesis
-- homoecious
-- honoribus
+- homogeneousness, 0.76
+- homogeneous, 0.67
+- homogenesis, 0.56
+- homoecious, 0.45
+- honoribus, 0.34
 
 **Reuirements**
 
@@ -33,13 +33,13 @@ Here, I have tried to use word level information that charcter embeddings provid
 
 ```
 
-Build dictionary of english words 
-Create Map which maps character to words that starts with it
-Fetch words from Map which starts with character with which input words starts (candidate words)
-Compute input word embedding using pretrained character embedding model
-Compute embedding for each candidate word
-Compute cosine distance between input word embedding and each candidate word embedding
-Ceturn top 5 candidate words which are closest to input word
+- Build dictionary of English words 
+- Create Map which maps character to words that starts with it
+- Fetch words from Map starting with first character of input word (candidate words)
+- Compute input word embedding using pretrained character embedding model
+- Compute embedding for each candidate word
+- Compute cosine distance between input word embedding and each candidate word embedding
+- Return top 5 candidate words which are closest to input word
 ```
 
 **How to run**
@@ -58,19 +58,18 @@ localhost:5000
 ```
 
 **Limitations**
-- If input word has spelling mistake at start, It fails
-- If correct word is absent in used dictionaries, It fails
-- Context is absent so can not suggest exact correct spelling
+- If first character of input word has spelling mistake, It fails
+- If correct word is absent in dictionary, It fails
+- Context is not considered, so can not suggest only one exact correction
 
 **Possible Improvements**
-- consider all words in dictionary as candidate words( high complexity)
-- Use some heuristic to reduce number of candidate ( Here I have used candidate word should start with same char as that of input word. 
+- consider all words in dictionary as candidate words(high complexity)
+- Use some heuristic to reduce number of candidate (Here, I have used candidate word should start with same char as that of input word as heuristic. 
 Other could be edit distance based candidate computation)
-- Third limitation could be avoided by using LSTMs based Encoder Decoder framework with sentence consisting of misspelled words as input and sentence with 
-correct words as output. This would enable us to suggest exact correct spelling of input word by considering context in which input word appears.
+- Third limitation could be avoided by using LSTM based Encoder Decoder framework with sentence consisting of mis-spelled words as input and sentence with 
+correct words as output. This would enable us to suggest only one correct spelling of input word.
 
 **Acknowledgement**
-- I would like to thank [chars2vec project](https://github.com/IntuitionEngineeringTeam/chars2vec) contributors. This prevented one additional task of training 
-character embedding and helped in building first initial version in really quick time.
-- Secondly I have prepared unique bigrams dictionary using wikipedia based corpus. I will soon provide link from where I have taken it.
+- I would like to thank [chars2vec project](https://github.com/IntuitionEngineeringTeam/chars2vec) contributors. It prevented one additional task of training character embeddings and helped in building first initial version in really quick time.
+- Secondly, I have prepared unique bigrams dictionary using wikipedia based corpus. I somehow lost the link to it, will soon provide it.
 - I have taken english word list from [english word list source](http://www-personal.umich.edu/~jlawler/wordlist.html)
