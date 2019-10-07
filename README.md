@@ -1,3 +1,5 @@
+## Context Independent Unsupervised Spelling Suggestor for misspelled word using Pretrained Character Embeddings
+
 **About**
 
 Application expects word with spelling mistake as input and returns top 5 possible corrections of it. These corrections are ordered in 
@@ -23,11 +25,8 @@ Please install libraries using requirements.txt and download dictionaries
 
 **Approach**
 
-Here I have tried to use word level information that charcter embeddings provide to come up with words those are closer to input word. 
-Intution behind using chacter embedding to encode word is misspelled word will be more closer to its actual possible corrections as character 
-embeddings encode word level information such as charcter used, order in which they occur. I have used pretrained chacter embeddings 
-from [chars2vec project](https://github.com/IntuitionEngineeringTeam/chars2vec) and used pretrained model which encode 
-word in 300 dimensional vector.
+Here, I have tried to use word level information that charcter embeddings provide to come up with words which are closer to input word. 
+chars2vec project [chars2vec project](https://github.com/IntuitionEngineeringTeam/chars2vec) has trained LSTM based architecture on the pair of similar and non-similar words with objective of having proximal vectors for similar words. Hence I have used it to encode words with these pretrained character embeddings.
 
 **Algorithm**
 
