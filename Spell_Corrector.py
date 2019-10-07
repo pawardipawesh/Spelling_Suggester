@@ -1,0 +1,104 @@
+from Dictionary_Utils import DictUtils
+import numpy as np
+import scipy.spatial.distance
+import chars2vec
+from flask import Flask, request, render_template,jsonify
+from keras import backend as K
+
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return render_template('home.html')
+
+class SpellCorrector:
+    
+    def create_dict(self,unigrams_bigrams):
+        startChar_to_words_dict={}
+
+        for w in unigrams_bigrams:
+            w=w.strip()
+            if w=='':
+                continue
+            start_char=w[0]
+            if start_char in startChar_to_words_dict and w not in startChar_to_words_dict[start_char]:
+                startChar_to_words_dict[start_char].add(w)
+            else:
+                candidate_words=set()
+                candidate_words.add(w)
+                startChar_to_words_dict[start_char]=candidate_words
+        return startChar_to_words_dict
+
+    def find_nearest_word(self,candidate_words_distances,candidate_words):
+        #print('Inside find_nearest_word')
+        word_distances_dict=dict(zip(candidate_words, candidate_words_distances))
+        word_distances_sorted=sorted(word_distances_dict.items(), key=lambda kv: kv[1])
+        #print(word_distances_sorted)
+        return word_distances_sorted[0:5]
+    
+    def compute_distance(self,candidate_word_vectors, input_word_vector):
+        v = input_word_vector.reshape(1, -1)
+        
+        return scipy.spatial.distance.cdist(candidate_word_vectors, v, 'cosine').reshape(-1)
+
+    def compute_correct_word(self,input_word,startChar_to_words_dict,char_emb_model):
+        if input_word=='' or input_word==None:
+            return 'Input Word is Empty'
+        
+        input_word=input_word.strip()
+        
+        input_word_len=int(1.5*len(input_word))
+        input_word_vector=char_emb_model.vectorize_words([input_word])[0]
+        
+        candidate_words=[w for w in list(startChar_to_words_dict[input_word[0]]) if len(w)<=input_word_len]
+        candidate_words_vectors=[list(v) for v in char_emb_model.vectorize_words(candidate_words)]
+        
+        
+
+        candidate_words_distances=list(self.compute_distance(candidate_words_vectors,input_word_vector))
+        #print('Candidate Words Distances computed')
+        #print('You might want to write any of the following:\n')
+        
+        return '<br>'.join([word_tuple[0] for word_tuple in self.find_nearest_word(candidate_words_distances,candidate_words)])
+        
+@app.route('/spell_suggest', methods=['GET','POST'])
+def my_form_post():
+    K.clear_session()
+    
+    char_emb_model=chars2vec.load_model('chars2vec-master/chars2vec-master/chars2vec/trained_models/eng_300/')
+    text1 = request.form['text1']
+    word = request.args.get('text1')
+    possible_spellings= execute_spell_suggester(text1,char_emb_model)
+    result = {
+        "output": possible_spellings
+    }
+    result = {str(key): value for key, value in result.items()}
+    return jsonify(result=result)
+    
+
+def execute_spell_suggester(input_word,char_emb_model):
+    
+    spell_corrector=SpellCorrector()
+    unique_bi_grams_file=DictUtils.load_file('unique_bi_grams.txt')
+    unique_bi_grams=unique_bi_grams_file.read().split('\n')
+    eng_words_file=DictUtils.load_file('wordlist.txt','r')
+    eng_words=eng_words_file.read().split('\n')
+
+    unique_bi_grams.extend(eng_words)
+    # del unique_bi_grams
+    # del eng_words
+    
+    startChar_to_words_dict=spell_corrector.create_dict(unique_bi_grams)
+    # del unigrams_bigrams
+    #while True:
+    #print('Enter Input Word')
+    #input_word=input()
+    return spell_corrector.compute_correct_word(input_word,startChar_to_words_dict,char_emb_model)
+    #print('Do you want to continue? If no type n')
+    #contin=input()
+    #if contin=='n':
+    #break
+    
+if __name__ == "__main__":
+    app.run(debug=True)
