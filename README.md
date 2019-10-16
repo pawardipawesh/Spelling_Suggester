@@ -21,7 +21,8 @@ e.g.
 **Reuirements**
 
 Please install libraries using requirements.txt and download dictionaries
-- [Unique Bigrams](https://drive.google.com/file/d/1_HaGierUJNIj1fPrW5IjMPIQecNVM_DT/view?usp=sharing) If you want Spelling Suggester to be fast, provide blank Unigram_Bigrams file instead of providing dowloaded version.
+- [Unique Bigrams](https://drive.google.com/file/d/1_HaGierUJNIj1fPrW5IjMPIQecNVM_DT/view?usp=sharing) 
+  - If you want Spelling Suggester to be fast and more accurate, provide blank unique_bigrams file instead of providing dowloaded version. It was mainly incorporated to handle spelling mistake between end and start of two words like say user misses space between two words. However this increases candidate spelling corrections and hence makes algorithm take too much time and reduce its accuracy.
 - [English Word List](https://drive.google.com/file/d/1lprx1kDcERFtokKqQYxpiH_GkS6vn7d4/view?usp=sharing)
 
 **Approach**
