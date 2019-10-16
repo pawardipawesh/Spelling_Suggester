@@ -21,7 +21,7 @@ e.g.
 **Reuirements**
 
 Please install libraries using requirements.txt and download dictionaries
-- [Unique Bigrams](https://drive.google.com/file/d/1_HaGierUJNIj1fPrW5IjMPIQecNVM_DT/view?usp=sharing)
+- [Unique Bigrams](https://drive.google.com/file/d/1_HaGierUJNIj1fPrW5IjMPIQecNVM_DT/view?usp=sharing) If you want Spelling Suggester to be fast, provide blank Unigram_Bigrams file instead of providing dowloaded version.
 - [English Word List](https://drive.google.com/file/d/1lprx1kDcERFtokKqQYxpiH_GkS6vn7d4/view?usp=sharing)
 
 **Approach**
