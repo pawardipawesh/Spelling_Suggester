@@ -1,0 +1,4 @@
+*.pyc
+__pycache__
+unique_bi_grams.txt
+wordlist.txt

@@ -11,11 +11,14 @@ from IPython.display import clear_output
 
 class DictUtils():
     
-    def load_file(file_path,mode='r',encoding='utf8'):
-        i=0
+    def load_file(self, file_path, mode='r', encoding='utf-8'):
+        i = 0
         while True:
             try:
-                file=open(file_path,mode,encoding=encoding,errors='ignore')
+                # with open("filename.txt", "rb") as f:
+                #     file = f.read().decode("UTF-8")
+                file = open(file_path, mode, encoding=encoding)
+                print(file)
                 return file
             except IOError:
                 if i<5:
@@ -23,7 +26,7 @@ class DictUtils():
                 else:
                     raise IOError("Your main directory is not consisting of file: "+file_path)
     
-    def write_file(file,content,sep):
+    def write_file(self, file, content, sep):
         i=0
         while i<5:
             try:
@@ -33,7 +36,7 @@ class DictUtils():
                 i+=1
                 pass
             
-    def close_file(file):
+    def close_file(self, file):
         i=0
         while True:
             try:
@@ -47,16 +50,16 @@ class DictUtils():
                 
         
 
-    def get_line_bigrams(line,stop_words):
+    def get_line_bigrams(line, stop_words):
         tokenized_clean_line=[w for w in line.split() if w.isalpha()]
         valid_ngrams=set([ngram for ngram in set([ng[0]+' '+ng[1] for ng in ngrams(tokenized_clean_line,2)])if ngram.split()[0] 
                       not in stop_words and ngram.split()[1] not in stop_words])
         return valid_ngrams
     
-    def write_bigrams(input_file,output_file):
+    def write_bigrams(input_file, output_file):
         
-        wikidata_file=load_file(input_file,'r')
-        bigram_file=load_file(output_file,'w')
+        wikidata_file=self.load_file(input_file,'r')
+        bigram_file=self.load_file(output_file,'w')
 
         stop_words=set(stopwords.words('english'))
         lines=wikidata_file.readlines()

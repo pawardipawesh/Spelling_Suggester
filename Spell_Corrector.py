@@ -8,7 +8,7 @@ from config import *
 
 class SpellCorrector:
     
-    def create_dict(self,unigrams_bigrams):
+    def create_dict(self, unigrams_bigrams):
         startChar_to_words_dict={}
 
         for w in unigrams_bigrams:
@@ -85,13 +85,14 @@ def home():
     return render_template('home.html')
 
 print('Please hold on....application is loading....')
-spell_corrector=SpellCorrector()
-unique_bi_grams_file=DictUtils.load_file(bigram_dict_path)
+spell_corrector = SpellCorrector()
+dict_utils_obj = DictUtils()
+unique_bi_grams_file = dict_utils_obj.load_file(bigram_dict_path)
 unique_bi_grams=unique_bi_grams_file.read().split('\n')
-eng_words_file=DictUtils.load_file(eng_word_list_path,'r')
+eng_words_file=dict_utils_obj.load_file(eng_word_list_path,'r')
 eng_words=eng_words_file.read().split('\n')
 unique_bi_grams.extend(eng_words)
-startChar_to_words_dict=spell_corrector.create_dict(unique_bi_grams)
+startChar_to_words_dict = spell_corrector.create_dict(unique_bi_grams)
 print('Loading is done....Please hit localhost:5000 in your browser')
     
 if __name__ == "__main__":
