@@ -1,5 +1,8 @@
 ## Context Independent Unsupervised Spelling Suggester for misspelled word using Pretrained Character Embeddings
 
+**Demo**
+http://nlp-ai.herokuapp.com/spelling_suggester
+
 **About**
 
 Application expects word with spelling mistake as input and returns top 5 possible corrections of it. These corrections are ordered in 
