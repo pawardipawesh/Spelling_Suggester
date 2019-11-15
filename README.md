@@ -1,6 +1,7 @@
 ## Context Independent Unsupervised Spelling Suggester for misspelled word using Pretrained Character Embeddings
 
 **Demo**
+
 http://nlp-ai.herokuapp.com/spelling_suggester
 
 **About**
