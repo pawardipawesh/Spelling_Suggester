@@ -14,8 +14,8 @@ RUN apt-get update && apt-get install -y libfreetype6-dev && \
                        libfontconfig1 --fix-missing
 
 # install Python and pip package manager
-RUN apt-get install -y python3.6 \
-                       python3.6-dev \
+RUN apt-get install -y python3.7 \
+                       python3.7-dev \
                        python3-pip
 
 COPY ./requirements.txt /
